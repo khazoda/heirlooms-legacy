@@ -16,7 +16,7 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-          "com.khazoda.heirlooms.HeirloomsMod"
+          "com.khazoda.heirlooms.HeirloomsModFabric"
         ]
     },
     "mixins": [
