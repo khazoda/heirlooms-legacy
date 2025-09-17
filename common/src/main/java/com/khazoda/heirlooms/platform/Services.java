@@ -1,7 +1,7 @@
-package com.example.examplemod.platform;
+package com.khazoda.heirlooms.platform;
 
-import com.example.examplemod.Constants;
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.khazoda.heirlooms.Constants;
+import com.khazoda.heirlooms.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
 
