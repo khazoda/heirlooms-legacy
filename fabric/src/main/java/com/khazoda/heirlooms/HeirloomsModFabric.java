@@ -14,7 +14,11 @@ public class HeirloomsModFabric implements ModInitializer {
             ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "crafted_timestamp"),
             HeirloomsMod.CRAFTED_TIMESTAMP
     );
+    Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "crafted_by"),
+            HeirloomsMod.CRAFTED_BY
+    );
     TooltipHandler.register();
   }
-
 }

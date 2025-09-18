@@ -19,10 +19,10 @@ public class HeirloomsModNeoForge {
 
     // Register Data Component
     COMPONENTS.register("crafted_timestamp", () -> HeirloomsMod.CRAFTED_TIMESTAMP);
+    COMPONENTS.register("crafted_by", () -> HeirloomsMod.CRAFTED_BY);
     COMPONENTS.register(eventBus);
   }
 
   private static final DeferredRegister<DataComponentType<?>> COMPONENTS =
           DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
-
 }
