@@ -9,13 +9,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/* FOR SMITHING TABLE */
+/* Targets player taking a crafted item out without holding shift */
 @Mixin(SmithingMenu.class)
 public class MixinSmithingMenu {
-  @Inject(
-          method = "onTake",
-          at = @At("HEAD")
-  )
-  private void heirlooms$onSmithingItemCrafted(Player player, ItemStack stack, CallbackInfo ci) {
+  @Inject(method = "onTake", at = @At("HEAD"))
+  private void heirlooms$onItemSmithed(Player player, ItemStack stack, CallbackInfo ci) {
     SlotResultModifier.handleCraftedItem(player, stack);
   }
 }

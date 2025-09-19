@@ -1,6 +1,7 @@
 package com.khazoda.heirlooms.mixinutils;
 
 import com.khazoda.heirlooms.HeirloomsMod;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -15,5 +16,7 @@ public class SlotResultModifier {
 
     stack.set(HeirloomsMod.CRAFTED_TIMESTAMP, Instant.now().toString());
     stack.set(HeirloomsMod.CRAFTED_BY, player.getGameProfile().getName());
+    player.sendSystemMessage(Component.literal("CRAFTED:" + stack.getItem()));
+
   }
 }
