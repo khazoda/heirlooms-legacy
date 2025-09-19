@@ -16,7 +16,5 @@ public class SlotResultModifier {
 
     stack.set(HeirloomsMod.CRAFTED_TIMESTAMP, Instant.now().toString());
     stack.set(HeirloomsMod.CRAFTED_BY, player.getGameProfile().getName());
-    player.sendSystemMessage(Component.literal("CRAFTED:" + stack.getItem()));
-
   }
 }
