@@ -20,6 +20,8 @@ public class HeirloomsModNeoForge {
     // Register Data Component
     COMPONENTS.register("crafted_timestamp", () -> HeirloomsMod.CRAFTED_TIMESTAMP);
     COMPONENTS.register("crafted_by", () -> HeirloomsMod.CRAFTED_BY);
+    COMPONENTS.register("enchanted_timestamp", () -> HeirloomsMod.ENCHANTED_TIMESTAMP);
+    COMPONENTS.register("enchanted_by", () -> HeirloomsMod.ENCHANTED_BY);
     COMPONENTS.register(eventBus);
   }
 

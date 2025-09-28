@@ -19,5 +19,15 @@ public class HeirloomsModFabric implements ModInitializer {
             ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "crafted_by"),
             HeirloomsMod.CRAFTED_BY
     );
+    Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "enchanted_timestamp"),
+            HeirloomsMod.ENCHANTED_TIMESTAMP
+    );
+    Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "enchanted_by"),
+            HeirloomsMod.ENCHANTED_BY
+    );
   }
 }

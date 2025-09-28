@@ -3,6 +3,7 @@ package com.khazoda.heirlooms;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -22,31 +23,77 @@ public class TooltipHandler implements ItemTooltipCallback {
   }
 
   @Override
-  public void getTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipFlag tooltipFlag, List<Component> list) {
-    String timestamp = itemStack.get(HeirloomsMod.CRAFTED_TIMESTAMP);
-    String crafted_by = itemStack.get(HeirloomsMod.CRAFTED_BY);
+  public void getTooltip(ItemStack stack, Item.TooltipContext tooltipContext, TooltipFlag tooltipFlag, List<Component> list) {
+    String crafted_timestamp = stack.get(HeirloomsMod.CRAFTED_TIMESTAMP);
+    String crafted_by = stack.get(HeirloomsMod.CRAFTED_BY);
+    int craftedTextColour = 9068607;
 
-    if (timestamp == null) return;
-    if (crafted_by == null) return;
-    try {
-      if (!Screen.hasControlDown()) {
-        list.add(Component.literal("[ᴄᴛʀʟ]").withColor(6776679));
-      } else {
-        Instant instant = Instant.parse(timestamp);
-        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+    String enchanted_timestamp = stack.get(HeirloomsMod.ENCHANTED_TIMESTAMP);
+    String enchanted_by = stack.get(HeirloomsMod.ENCHANTED_BY);
+    int enchantedTextColour = 4157834;
 
-        int year = zonedDateTime.getYear();
-        int month = zonedDateTime.getMonthValue();
-        int day = zonedDateTime.getDayOfMonth();
+    /* Only apply to items with one of my data components */
+    if (crafted_timestamp == null && enchanted_timestamp == null) return;
 
-        String languageCode = Minecraft.getInstance().getLanguageManager().getSelected();
-        Locale locale = Locale.forLanguageTag(languageCode.replace("_", "-"));
-        String monthName = zonedDateTime.getMonth().getDisplayName(TextStyle.FULL, locale);
+    /* Forge correct button prompts based on player's current pressed key(s) */
+    MutableComponent buttonPrompt = Component.empty();
+    boolean pressedCTRL = Screen.hasControlDown();
+    boolean pressedALT = Screen.hasAltDown();
+    boolean existsCraftData = crafted_timestamp != null;
+    boolean existsEnchantData = enchanted_timestamp != null;
+    if (existsCraftData && !pressedCTRL) buttonPrompt.append(Component.literal("[ᴄᴛʀʟ]").withColor(craftedTextColour));
+    if (existsCraftData && !pressedCTRL && existsEnchantData && !pressedALT) buttonPrompt.append(Component.literal(" "));
+    if (existsEnchantData && !pressedALT) buttonPrompt.append(Component.literal("[ᴀʟᴛ]").withColor(enchantedTextColour));
+    if (!buttonPrompt.getString().isEmpty()) list.add(buttonPrompt);
 
-        list.add(Component.translatable("tooltip.heirlooms.crafted_by", crafted_by).withColor(6776679));
-        list.add(Component.translatable("tooltip.heirlooms.crafted_date", day, month, monthName, year).withColor(6776679));
+    /* Add crafting tooltip */
+    if (crafted_timestamp != null) {
+      if (crafted_by != null) {
+        try {
+          if (Screen.hasControlDown()) {
+            Instant instant = Instant.parse(crafted_timestamp);
+            ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+
+            int year = zonedDateTime.getYear();
+            int month = zonedDateTime.getMonthValue();
+            int day = zonedDateTime.getDayOfMonth();
+
+            String languageCode = Minecraft.getInstance().getLanguageManager().getSelected();
+            Locale locale = Locale.forLanguageTag(languageCode.replace("_", "-"));
+            String monthName = zonedDateTime.getMonth().getDisplayName(TextStyle.FULL, locale);
+
+            list.add(Component.translatable("tooltip.heirlooms.crafted_by", crafted_by).withColor(craftedTextColour));
+            list.add(Component.translatable("tooltip.heirlooms.date", day, month, monthName, year).withColor(craftedTextColour));
+          }
+        } catch (Exception ignored) {
+          System.out.println("Heirlooms mod error [1] - please report on the issue tracker");
+        }
       }
-    } catch (Exception ignored) {
+    }
+
+    /* Add enchantment tooltip */
+    if (enchanted_timestamp != null) {
+      if (enchanted_by != null) {
+        try {
+          if (Screen.hasAltDown()) {
+            Instant instant = Instant.parse(enchanted_timestamp);
+            ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+
+            int year = zonedDateTime.getYear();
+            int month = zonedDateTime.getMonthValue();
+            int day = zonedDateTime.getDayOfMonth();
+
+            String languageCode = Minecraft.getInstance().getLanguageManager().getSelected();
+            Locale locale = Locale.forLanguageTag(languageCode.replace("_", "-"));
+            String monthName = zonedDateTime.getMonth().getDisplayName(TextStyle.FULL, locale);
+
+            list.add(Component.translatable("tooltip.heirlooms.enchanted_by", enchanted_by).withColor(enchantedTextColour));
+            list.add(Component.translatable("tooltip.heirlooms.date", day, month, monthName, year).withColor(enchantedTextColour));
+          }
+        } catch (Exception ignored) {
+          System.out.println("Heirlooms mod error [1] - please report on the issue tracker");
+        }
+      }
     }
   }
 }
