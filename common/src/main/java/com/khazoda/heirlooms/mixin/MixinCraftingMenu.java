@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /* Targets player taking a crafted item out while pressing shift */
 @Mixin(CraftingMenu.class)
 public class MixinCraftingMenu {
-  @Inject(method = "quickMoveStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/ContainerLevelAccess;execute(Ljava/util/function/BiConsumer;)V", shift = At.Shift.AFTER))
+  @Inject(method = "quickMoveStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;onCraftedBy(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;)V", shift = At.Shift.AFTER))
   private void heirlooms$onShiftClickCrafted(Player player, int index, CallbackInfoReturnable<ItemStack> cir) {
     if (index == 0) {
       Slot slot = ((CraftingMenu) (Object) this).getSlot(0);

@@ -1,5 +1,6 @@
 package com.khazoda.heirlooms;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -9,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.time.Instant;
@@ -40,8 +42,8 @@ public class TooltipHandler {
 
     /* Forge correct button prompts based on player's current pressed key(s) */
     MutableComponent buttonPrompt = Component.empty();
-    boolean pressedCTRL = Screen.hasControlDown();
-    boolean pressedALT = Screen.hasAltDown();
+    boolean pressedCTRL = InputConstants.isKeyDown(Minecraft.getInstance().getWindow(),InputConstants.KEY_LCONTROL);
+    boolean pressedALT = InputConstants.isKeyDown(Minecraft.getInstance().getWindow(),InputConstants.KEY_LALT);
     boolean existsCraftData = crafted_timestamp != null;
     boolean existsEnchantData = enchanted_timestamp != null;
     if (existsCraftData && !pressedCTRL) buttonPrompt.append(Component.literal("[ᴄᴛʀʟ]").withColor(craftedTextColour));
@@ -54,7 +56,7 @@ public class TooltipHandler {
     if (crafted_timestamp != null) {
       if (crafted_by != null) {
         try {
-          if (Screen.hasControlDown()) {
+          if (pressedCTRL) {
             Instant instant = Instant.parse(crafted_timestamp);
             ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
 
@@ -79,7 +81,7 @@ public class TooltipHandler {
     if (enchanted_timestamp != null) {
       if (enchanted_by != null) {
         try {
-          if (Screen.hasAltDown()) {
+          if (pressedALT) {
             Instant instant = Instant.parse(enchanted_timestamp);
             ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
 

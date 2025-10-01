@@ -1,7 +1,10 @@
 package com.khazoda.heirlooms;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.KeyboardInput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
@@ -37,8 +40,8 @@ public class TooltipHandler implements ItemTooltipCallback {
 
     /* Forge correct button prompts based on player's current pressed key(s) */
     MutableComponent buttonPrompt = Component.empty();
-    boolean pressedCTRL = Screen.hasControlDown();
-    boolean pressedALT = Screen.hasAltDown();
+    boolean pressedCTRL = InputConstants.isKeyDown(Minecraft.getInstance().getWindow(),InputConstants.KEY_LCONTROL);
+    boolean pressedALT = InputConstants.isKeyDown(Minecraft.getInstance().getWindow(),InputConstants.KEY_LALT);
     boolean existsCraftData = crafted_timestamp != null;
     boolean existsEnchantData = enchanted_timestamp != null;
     if (existsCraftData && !pressedCTRL) buttonPrompt.append(Component.literal("[ᴄᴛʀʟ]").withColor(craftedTextColour));
@@ -50,7 +53,7 @@ public class TooltipHandler implements ItemTooltipCallback {
     if (crafted_timestamp != null) {
       if (crafted_by != null) {
         try {
-          if (Screen.hasControlDown()) {
+          if (pressedCTRL) {
             Instant instant = Instant.parse(crafted_timestamp);
             ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
 
@@ -75,7 +78,7 @@ public class TooltipHandler implements ItemTooltipCallback {
     if (enchanted_timestamp != null) {
       if (enchanted_by != null) {
         try {
-          if (Screen.hasAltDown()) {
+          if (pressedALT) {
             Instant instant = Instant.parse(enchanted_timestamp);
             ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
 

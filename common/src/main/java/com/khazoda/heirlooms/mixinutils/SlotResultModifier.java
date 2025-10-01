@@ -15,7 +15,7 @@ public class SlotResultModifier {
     if (stack.has(HeirloomsMod.CRAFTED_TIMESTAMP) || stack.has(HeirloomsMod.CRAFTED_BY)) return;
 
     stack.set(HeirloomsMod.CRAFTED_TIMESTAMP, Instant.now().toString());
-    stack.set(HeirloomsMod.CRAFTED_BY, player.getGameProfile().getName());
+    stack.set(HeirloomsMod.CRAFTED_BY, player.getGameProfile().name());
   }
 
   public static void handleEnchantedItem(Player player, ItemStack stack) {
@@ -25,6 +25,6 @@ public class SlotResultModifier {
     if (stack.has(HeirloomsMod.ENCHANTED_TIMESTAMP) || stack.has(HeirloomsMod.ENCHANTED_BY)) return;
 
     stack.set(HeirloomsMod.ENCHANTED_TIMESTAMP, Instant.now().toString());
-    stack.set(HeirloomsMod.ENCHANTED_BY, player.getGameProfile().getName());
+    stack.set(HeirloomsMod.ENCHANTED_BY, player.getGameProfile().name());
   }
 }
