@@ -7,6 +7,7 @@
   "mixins": [
     "MixinCraftingMenu",
     "MixinEnchantmentMenu",
+    "MixinGrindstoneMenu",
     "MixinItemCombinerMenu",
     "MixinResultSlot",
     "MixinSmithingMenu"
