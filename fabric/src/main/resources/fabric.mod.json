@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.khazoda.heirlooms.HeirloomsModFabric"
+      "com.khazoda.heirlooms.HeirloomsFabric"
     ],
     "client": [
-      "com.khazoda.heirlooms.HeirloomsModFabricClient"
+      "com.khazoda.heirlooms.HeirloomsFabricClient"
     ]
   },
   "mixins": [
