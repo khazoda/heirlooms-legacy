@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -34,6 +35,7 @@ public class DisplayCaseRenderer implements BlockEntityRenderer<DisplayCaseBlock
     renderState.facing = blockEntity.getBlockState().getValue(DisplayCaseBlock.FACING);
     ItemStack stack = blockEntity.getItem(0);
     if (!stack.isEmpty()) {
+      if(stack.getItem() instanceof BlockItem) renderState.isBlockItem = true;
       renderState.item = new ItemStackRenderState();
       this.itemModelResolver.updateForTopItem(renderState.item, stack, ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
     } else {
@@ -46,8 +48,15 @@ public class DisplayCaseRenderer implements BlockEntityRenderer<DisplayCaseBlock
     if (renderState.item == null) return;
     poseStack.pushPose();
     poseStack.translate(0.5D, 0.5D, 0.5D);
-    poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.facing.toYRot() + 180));
-    poseStack.scale(0.5F, 0.5F, 0.5F);
+    if(renderState.isBlockItem) {
+      poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.facing.toYRot() + 180));
+      poseStack.scale(0.5F, 0.5F, 0.5F);
+    } else {
+      poseStack.translate(0, -0.4D, 0);
+      poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.facing.toYRot() + 180));
+      poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
+      poseStack.scale(0.5F, 0.5F, 0.5F);
+    }
     renderState.item.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
     poseStack.popPose();
   }

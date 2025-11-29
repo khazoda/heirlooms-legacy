@@ -9,4 +9,5 @@ public class DisplayCaseRenderState extends BlockEntityRenderState {
   @Nullable
   public ItemStackRenderState item;
   public Direction facing = Direction.NORTH;
+  public boolean isBlockItem;
 }
