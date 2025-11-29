@@ -32,10 +32,10 @@ public class DisplayCaseRenderer implements BlockEntityRenderer<DisplayCaseBlock
   public void extractRenderState(DisplayCaseBlockEntity blockEntity, DisplayCaseRenderState renderState, float partialTick, Vec3 cameraPosition, net.minecraft.client.renderer.feature.ModelFeatureRenderer.CrumblingOverlay breakProgress) {
     BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
     renderState.facing = blockEntity.getBlockState().getValue(DisplayCaseBlock.FACING);
-    ItemStack stack = blockEntity.getItem();
+    ItemStack stack = blockEntity.getItem(0);
     if (!stack.isEmpty()) {
       renderState.item = new ItemStackRenderState();
-      this.itemModelResolver.updateForTopItem(renderState.item, stack, ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+      this.itemModelResolver.updateForTopItem(renderState.item, stack, ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
     } else {
       renderState.item = null;
     }
@@ -44,13 +44,10 @@ public class DisplayCaseRenderer implements BlockEntityRenderer<DisplayCaseBlock
   @Override
   public void submit(DisplayCaseRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
     if (renderState.item == null) return;
-
     poseStack.pushPose();
     poseStack.translate(0.5D, 0.5D, 0.5D);
     poseStack.mulPose(Axis.YP.rotationDegrees(-renderState.facing.toYRot() + 180));
-
     poseStack.scale(0.5F, 0.5F, 0.5F);
-
     renderState.item.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
     poseStack.popPose();
   }

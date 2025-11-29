@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -70,27 +71,42 @@ public class DisplayCaseBlock extends BaseEntityBlock {
   }
 
   @Override
+  public boolean hasAnalogOutputSignal(BlockState state) {
+    return true;
+  }
+
+  @Override
+  protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+    BlockEntity blockEntity = level.getBlockEntity(pos);
+    if (blockEntity instanceof DisplayCaseBlockEntity displayCase) {
+      return displayCase.getItem(0).isEmpty() ? 0 : 15;
+    }
+    return 0;
+  }
+
+  @Override
   protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
     BlockEntity blockEntity = level.getBlockEntity(pos);
     if (blockEntity instanceof DisplayCaseBlockEntity displayCase) {
       if (level.isClientSide()) return InteractionResult.SUCCESS;
-      ItemStack currentItem = displayCase.getItem();
+
+      ItemStack currentItem = displayCase.getItem(0);
+
       if (currentItem.isEmpty() && !stack.isEmpty()) {
         ItemStack itemToInsert = stack.split(1);
-        displayCase.setItem(itemToInsert);
+        displayCase.setItem(0, itemToInsert);
         level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
-        displayCase.setChanged();
         return InteractionResult.SUCCESS;
       } else if (!currentItem.isEmpty()) {
         ItemStack handStack = player.getItemInHand(hand);
 
         if (handStack.isEmpty()) {
           player.setItemInHand(hand, currentItem);
-          displayCase.setItem(ItemStack.EMPTY);
+          displayCase.setItem(0, ItemStack.EMPTY);
           level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
         } else {
           ItemStack toPlace = handStack.split(1);
-          displayCase.setItem(toPlace);
+          displayCase.setItem(0, toPlace);
           if (handStack.isEmpty()) {
             player.setItemInHand(hand, currentItem);
           } else {
@@ -100,7 +116,6 @@ public class DisplayCaseBlock extends BaseEntityBlock {
           }
           level.playSound(null, pos, SoundEvents.ITEM_FRAME_ROTATE_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
         }
-        displayCase.setChanged();
         return InteractionResult.SUCCESS;
       }
     }
@@ -124,17 +139,16 @@ public class DisplayCaseBlock extends BaseEntityBlock {
     if (!level.isClientSide()) {
       BlockEntity blockEntity = level.getBlockEntity(pos);
       if (blockEntity instanceof DisplayCaseBlockEntity displayCase) {
-        if (!displayCase.getItem().isEmpty()) {
-          Block.popResource(level, pos, displayCase.getItem());
-          displayCase.setItem(ItemStack.EMPTY);
-        }
+        Containers.dropContents(level, pos, displayCase);
+        displayCase.clearContent();
+        level.updateNeighbourForOutputSignal(pos, this);
       }
     }
   }
 
   @Override
   public boolean skipRendering(BlockState state, BlockState neighborState, Direction side) {
-    return neighborState.is(this) ? true : super.skipRendering(state, neighborState, side);
+    return neighborState.is(this) || super.skipRendering(state, neighborState, side);
   }
 
   @Override
