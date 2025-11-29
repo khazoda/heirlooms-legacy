@@ -2,6 +2,8 @@ package com.khazoda.heirlooms.registry;
 
 import com.khazoda.heirlooms.block.DisplayCaseBlock;
 import com.khazoda.heirlooms.block.DisplayCaseBlockEntity;
+import com.khazoda.heirlooms.block.DisplayRackBlock;
+import com.khazoda.heirlooms.block.DisplayRackBlockEntity;
 import com.khazoda.heirlooms.platform.Services;
 import com.khazoda.heirlooms.registry.helper.Reggie;
 import net.minecraft.core.registries.Registries;
@@ -32,14 +34,25 @@ public class MainRegistry {
                   .isSuffocating((state, world, pos) -> false)
                   .isViewBlocking((state, world, pos) -> false)
                   .setId(id));
+  public static final Supplier<DisplayRackBlock> DISPLAY_RACK = registerBlock("display_rack", DisplayRackBlock::new,
+          id -> BlockBehaviour.Properties.of().strength(2.5f).noOcclusion()
+                  .isSuffocating((state, world, pos) -> false)
+                  .isViewBlocking((state, world, pos) -> false)
+                  .setId(id));
 
   public static final Supplier<BlockItem> DISPLAY_CASE_ITEM = registerBlockItem("display_case", DISPLAY_CASE::get);
+  public static final Supplier<BlockItem> DISPLAY_RACK_ITEM = registerBlockItem("display_rack", DISPLAY_RACK::get);
 
-  // 2. Register the Block Entity Type via the Platform Helper
   public static final Supplier<BlockEntityType<DisplayCaseBlockEntity>> DISPLAY_CASE_BE = BLOCK_ENTITY_REGISTRAR.register("display_case",
           () -> Services.PLATFORM.createBlockEntityType(
                   DisplayCaseBlockEntity::new,
                   DISPLAY_CASE.get()
+          )
+  );
+  public static final Supplier<BlockEntityType<DisplayRackBlockEntity>> DISPLAY_RACK_BE = BLOCK_ENTITY_REGISTRAR.register("display_rack",
+          () -> Services.PLATFORM.createBlockEntityType(
+                  DisplayRackBlockEntity::new,
+                  DISPLAY_RACK.get()
           )
   );
 

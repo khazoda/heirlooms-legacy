@@ -15,6 +15,7 @@ public class TabRegistry {
                   .icon(() -> MainRegistry.DISPLAY_CASE_ITEM.get().getDefaultInstance())
                   .displayItems((parameters, output) -> {
                     output.accept(MainRegistry.DISPLAY_CASE_ITEM.get());
+                    output.accept(MainRegistry.DISPLAY_RACK_ITEM.get());
                   })
                   .build());
   public static void init() {

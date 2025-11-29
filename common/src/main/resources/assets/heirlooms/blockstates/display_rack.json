@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "heirlooms:block/display_rack"
+    },
+    "facing=south": {
+      "model": "heirlooms:block/display_rack",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "heirlooms:block/display_rack",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "heirlooms:block/display_rack",
+      "y": 270
+    }
+  }
+}

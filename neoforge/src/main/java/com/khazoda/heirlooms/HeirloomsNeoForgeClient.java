@@ -1,6 +1,8 @@
 package com.khazoda.heirlooms;
 
+import com.khazoda.heirlooms.block.DisplayRackBlockEntity;
 import com.khazoda.heirlooms.block.renderer.DisplayCaseRenderer;
+import com.khazoda.heirlooms.block.renderer.DisplayRackRenderer;
 import com.khazoda.heirlooms.registry.MainRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
@@ -17,6 +19,8 @@ public class HeirloomsNeoForgeClient {
   @SubscribeEvent
   public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerBlockEntityRenderer(MainRegistry.DISPLAY_CASE_BE.get(), DisplayCaseRenderer::new);
+    event.registerBlockEntityRenderer(MainRegistry.DISPLAY_RACK_BE.get(), DisplayRackRenderer::new);
+
   }
 
   public HeirloomsNeoForgeClient(IEventBus eventBus) {
@@ -26,6 +30,8 @@ public class HeirloomsNeoForgeClient {
   public void onClientSetup(FMLCommonSetupEvent event) {
     event.enqueueWork(() -> {
       ItemBlockRenderTypes.setRenderLayer(MainRegistry.DISPLAY_CASE.get(), ChunkSectionLayer.CUTOUT);
+      ItemBlockRenderTypes.setRenderLayer(MainRegistry.DISPLAY_RACK.get(), ChunkSectionLayer.CUTOUT);
+
     });
   }
 }

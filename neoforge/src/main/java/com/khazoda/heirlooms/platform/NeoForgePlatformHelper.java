@@ -34,7 +34,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> factory, DisplayCaseBlock displayCaseBlock) {
-        return new BlockEntityType<>(factory::apply, Set.of(displayCaseBlock));
+    public <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BiFunction<BlockPos, BlockState, T> factory, Block... blocks) {
+        return new BlockEntityType<>(factory::apply, Set.of(blocks));
     }
 }
