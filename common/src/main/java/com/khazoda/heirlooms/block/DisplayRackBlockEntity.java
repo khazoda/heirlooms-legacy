@@ -76,7 +76,6 @@ public class DisplayRackBlockEntity extends BlockEntity implements Container {
     this.inventoryChanged();
 
     if (this.level != null) {
-      this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
       if (!this.level.isClientSide()) {
         this.level.updateNeighbourForOutputSignal(this.worldPosition, this.getBlockState().getBlock());
       }
