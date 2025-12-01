@@ -4,6 +4,8 @@ import com.khazoda.heirlooms.block.DisplayRackBlock;
 import com.khazoda.heirlooms.block.DisplayRackBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -14,12 +16,15 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class DisplayRackRenderer implements BlockEntityRenderer<DisplayRackBlockEntity, DisplayRackRenderState> {
 
   private final ItemModelResolver itemModelResolver;
+  
+  private static final Object2BooleanMap<Block> BLOCK_COLLISION_CACHE = new Object2BooleanOpenHashMap<>();
 
   public DisplayRackRenderer(BlockEntityRendererProvider.Context context) {
     this.itemModelResolver = context.itemModelResolver();
@@ -43,9 +48,17 @@ public class DisplayRackRenderer implements BlockEntityRenderer<DisplayRackBlock
     if (!stack.isEmpty()) {
       boolean useBlockRender = false;
       if (stack.getItem() instanceof BlockItem blockItem) {
-        BlockState state = blockItem.getBlock().defaultBlockState();
-        if (state.isCollisionShapeFullBlock(blockEntity.getLevel(), blockEntity.getBlockPos())) {
-          renderState.renderedBlockState = state;
+        Block block = blockItem.getBlock();
+        boolean isFullBlock = BLOCK_COLLISION_CACHE.computeIfAbsent(block, (Block b) -> {
+          BlockState state = b.defaultBlockState();
+          if (blockEntity.getLevel() != null) {
+            return state.isCollisionShapeFullBlock(blockEntity.getLevel(), blockEntity.getBlockPos());
+          }
+          return false;
+        });
+        
+        if (isFullBlock) {
+          renderState.renderedBlockState = block.defaultBlockState();
           useBlockRender = true;
         }
       }
