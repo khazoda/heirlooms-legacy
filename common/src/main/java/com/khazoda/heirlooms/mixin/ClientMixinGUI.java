@@ -39,9 +39,6 @@ public class ClientMixinGUI {
   @Unique
   private static final int HUD_SKY = 0x8ACEEB;
 
-  @Unique
-  private static final float TEXT_SCALE = 1f;
-
   @Inject(at = @At("TAIL"), method = "render")
   public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
     if (this.heirlooms$minecraft.options.hideGui || this.heirlooms$minecraft.player == null || this.heirlooms$minecraft.level == null)
@@ -70,7 +67,6 @@ public class ClientMixinGUI {
     List<Component> dataLines = new ArrayList<>();
     CommonTooltipHandler.handleTooltip(stack, dataLines, TooltipFlag.NORMAL, true, true);
 
-    /* Change text colouring to be more readable */
     for (int i = 0; i < dataLines.size(); i++) {
       Component line = dataLines.get(i);
       TextColor color = line.getStyle().getColor();
@@ -85,7 +81,6 @@ public class ClientMixinGUI {
     int centerX = screenWidth / 2;
     int startY = (screenHeight / 2) + 35;
 
-    /* Item name & icon*/
     int nameWidth = this.heirlooms$minecraft.font.width(name);
     int iconWidth = 16;
     int gap = 4;
@@ -96,39 +91,33 @@ public class ClientMixinGUI {
     guiGraphics.drawString(this.heirlooms$minecraft.font, name, groupStartX + iconWidth + gap, startY, 0xFFFFFFFF, true);
 
     if (dataLines.isEmpty()) return;
-    int baseDataY = startY + 18;
-    var poseStack = guiGraphics.pose();
-    poseStack.pushMatrix();
-    poseStack.scale(TEXT_SCALE, TEXT_SCALE);
 
-    /* Recalculate coordinates for scaled down text */
-    int sCenterX = (int) (centerX / TEXT_SCALE);
-    int sLeftX = (int) ((centerX - 65) / TEXT_SCALE);
-    int sRightX = (int) ((centerX + 65) / TEXT_SCALE);
-    int sBaseY = (int) (baseDataY / TEXT_SCALE);
+    int baseDataY = startY + 18;
 
     if (dataLines.size() >= 4) {
-      int currentY = sBaseY;
-      /* Left column */
+      int spineGap = 6;
+      int currentY = baseDataY;
+
       for (int i = 0; i < 2; i++) {
-        guiGraphics.drawCenteredString(this.heirlooms$minecraft.font, dataLines.get(i), sLeftX, currentY, 0xFFFFFFFF);
+        Component line = dataLines.get(i);
+        int lineWidth = this.heirlooms$minecraft.font.width(line);
+        guiGraphics.drawString(this.heirlooms$minecraft.font, line, centerX - spineGap - lineWidth, currentY, 0xFFFFFFFF, true);
         currentY += this.heirlooms$minecraft.font.lineHeight + 2;
       }
-      /* Right column */
-      currentY = sBaseY;
+
+      currentY = baseDataY;
       for (int i = 2; i < dataLines.size(); i++) {
-        guiGraphics.drawCenteredString(this.heirlooms$minecraft.font, dataLines.get(i), sRightX, currentY, 0xFFFFFFFF);
+        Component line = dataLines.get(i);
+        guiGraphics.drawString(this.heirlooms$minecraft.font, line, centerX + spineGap, currentY, 0xFFFFFFFF, true);
         currentY += this.heirlooms$minecraft.font.lineHeight + 2;
       }
 
     } else {
-      /* Single centered column*/
-      int currentY = sBaseY;
+      int currentY = baseDataY;
       for (Component line : dataLines) {
-        guiGraphics.drawCenteredString(this.heirlooms$minecraft.font, line, sCenterX, currentY, 0xFFFFFFFF);
+        guiGraphics.drawCenteredString(this.heirlooms$minecraft.font, line, centerX, currentY, 0xFFFFFFFF);
         currentY += this.heirlooms$minecraft.font.lineHeight + 2;
       }
     }
-    poseStack.popMatrix();
   }
 }
