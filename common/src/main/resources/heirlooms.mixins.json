@@ -12,6 +12,9 @@
     "MixinResultSlot",
     "MixinSmithingMenu"
   ],
+  "client": [
+    "ClientMixinGUI"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1
