@@ -30,12 +30,12 @@ public class MainRegistry {
   private static final Reggie<BlockEntityType<?>> BLOCK_ENTITY_REGISTRAR = REGISTRARS.get(Registries.BLOCK_ENTITY_TYPE);
 
   public static final Supplier<DisplayCaseBlock> DISPLAY_CASE = registerBlock("display_case", DisplayCaseBlock::new,
-          id -> BlockBehaviour.Properties.of().strength(2.5f).noOcclusion()
+          id -> BlockBehaviour.Properties.of().strength(2.0f, 6.0F).noOcclusion().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)
                   .isSuffocating((state, world, pos) -> false)
                   .isViewBlocking((state, world, pos) -> false)
                   .setId(id));
   public static final Supplier<DisplayRackBlock> DISPLAY_RACK = registerBlock("display_rack", DisplayRackBlock::new,
-          id -> BlockBehaviour.Properties.of().strength(2.5f).noOcclusion()
+          id -> BlockBehaviour.Properties.of().strength(1.5f,4.0F).noOcclusion().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD)
                   .isSuffocating((state, world, pos) -> false)
                   .isViewBlocking((state, world, pos) -> false)
                   .setId(id));
