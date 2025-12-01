@@ -31,7 +31,7 @@ public class DisplayCaseBlockEntity extends BlockEntity implements Container {
     this.setChanged();
     if (this.level != null) {
       // Send a packet to the client to refresh the DisplayCaseRenderer (for things like hoppers)
-      this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+      this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_NEIGHBORS);
     }
   }
 
