@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": "#minecraft:stone_crafting_materials",
+    "W": "#minecraft:planks",
+    "G": "minecraft:glass_pane"
+  },
+  "pattern": [
+    "GGG",
+    "GWG",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "heirlooms:display_case"
+  }
+}

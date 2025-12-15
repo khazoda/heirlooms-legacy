@@ -1,5 +1,9 @@
 {
   "tooltip.heirlooms.crafted_by": "Crafted by %1$s",
   "tooltip.heirlooms.enchanted_by": "Enchanted by %1$s",
-  "tooltip.heirlooms.date": "%1$d %3$s %4$d"
+  "tooltip.heirlooms.date": "%1$d %3$s %4$d",
+  "heirlooms.itemGroup": "Heirlooms",
+  "block.heirlooms.display_case": "Display Case",
+  "block.heirlooms.display_rack": "Display Rack"
+
 }
