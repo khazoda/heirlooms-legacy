@@ -1,6 +1,5 @@
 package com.khazoda.heirlooms.mixin;
 
-import com.khazoda.heirlooms.HeirloomsCommon;
 import com.khazoda.heirlooms.registry.DataComponentRegistry;
 import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.item.ItemStack;

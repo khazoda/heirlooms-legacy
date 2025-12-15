@@ -1,6 +1,5 @@
 package com.khazoda.heirlooms.platform.services;
 
-import com.khazoda.heirlooms.block.DisplayCaseBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;

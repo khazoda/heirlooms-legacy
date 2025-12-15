@@ -26,7 +26,7 @@ public class VoxelShapeHelper {
    * @param shape The VoxelShape to rotate
    * @return A new VoxelShape that has been rotated to the target direction
    *
-   * 
+   *
    */
   public static VoxelShape rotateShape(Direction from, Direction to, VoxelShape shape) {
     VoxelShape[] buffer = new VoxelShape[]{shape, Shapes.empty()};
@@ -47,13 +47,13 @@ public class VoxelShapeHelper {
    *
    * @param blockShape The base VoxelShape to generate rotations from
    * @return An array of VoxelShapes containing the original and rotated shapes
-   *         Index 0: North (original)
-   *         Index 1: East
-   *         Index 2: South
-   *         Index 3: West
+   * Index 0: North (original)
+   * Index 1: East
+   * Index 2: South
+   * Index 3: West
    */
   public static VoxelShape[] calculateBlockShapes(VoxelShape blockShape) {
-    return new VoxelShape[] {
+    return new VoxelShape[]{
         blockShape,
         rotateShape(Direction.NORTH, Direction.EAST, blockShape),
         rotateShape(Direction.NORTH, Direction.SOUTH, blockShape),

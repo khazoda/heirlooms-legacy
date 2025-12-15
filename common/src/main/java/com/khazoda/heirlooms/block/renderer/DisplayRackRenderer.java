@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 public class DisplayRackRenderer implements BlockEntityRenderer<DisplayRackBlockEntity, DisplayRackRenderState> {
 
   private final ItemModelResolver itemModelResolver;
-  
+
   private static final Object2BooleanMap<Block> BLOCK_COLLISION_CACHE = new Object2BooleanOpenHashMap<>();
 
   public DisplayRackRenderer(BlockEntityRendererProvider.Context context) {
@@ -56,7 +56,7 @@ public class DisplayRackRenderer implements BlockEntityRenderer<DisplayRackBlock
           }
           return false;
         });
-        
+
         if (isFullBlock) {
           renderState.renderedBlockState = block.defaultBlockState();
           useBlockRender = true;

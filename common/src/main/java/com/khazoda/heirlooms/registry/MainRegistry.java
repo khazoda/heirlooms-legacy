@@ -30,30 +30,30 @@ public class MainRegistry {
   private static final Reggie<BlockEntityType<?>> BLOCK_ENTITY_REGISTRAR = REGISTRARS.get(Registries.BLOCK_ENTITY_TYPE);
 
   public static final Supplier<DisplayCaseBlock> DISPLAY_CASE = registerBlock("display_case", DisplayCaseBlock::new,
-          id -> BlockBehaviour.Properties.of().strength(2.0f, 6.0F).noOcclusion().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)
-                  .isSuffocating((state, world, pos) -> false)
-                  .isViewBlocking((state, world, pos) -> false)
-                  .setId(id));
+      id -> BlockBehaviour.Properties.of().strength(2.0f, 6.0F).noOcclusion().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)
+          .isSuffocating((state, world, pos) -> false)
+          .isViewBlocking((state, world, pos) -> false)
+          .setId(id));
   public static final Supplier<DisplayRackBlock> DISPLAY_RACK = registerBlock("display_rack", DisplayRackBlock::new,
-          id -> BlockBehaviour.Properties.of().strength(1.5f,4.0F).noOcclusion().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD)
-                  .isSuffocating((state, world, pos) -> false)
-                  .isViewBlocking((state, world, pos) -> false)
-                  .setId(id));
+      id -> BlockBehaviour.Properties.of().strength(1.5f, 4.0F).noOcclusion().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD)
+          .isSuffocating((state, world, pos) -> false)
+          .isViewBlocking((state, world, pos) -> false)
+          .setId(id));
 
   public static final Supplier<BlockItem> DISPLAY_CASE_ITEM = registerBlockItem("display_case", DISPLAY_CASE::get);
   public static final Supplier<BlockItem> DISPLAY_RACK_ITEM = registerBlockItem("display_rack", DISPLAY_RACK::get);
 
   public static final Supplier<BlockEntityType<DisplayCaseBlockEntity>> DISPLAY_CASE_BE = BLOCK_ENTITY_REGISTRAR.register("display_case",
-          () -> Services.PLATFORM.createBlockEntityType(
-                  DisplayCaseBlockEntity::new,
-                  DISPLAY_CASE.get()
-          )
+      () -> Services.PLATFORM.createBlockEntityType(
+          DisplayCaseBlockEntity::new,
+          DISPLAY_CASE.get()
+      )
   );
   public static final Supplier<BlockEntityType<DisplayRackBlockEntity>> DISPLAY_RACK_BE = BLOCK_ENTITY_REGISTRAR.register("display_rack",
-          () -> Services.PLATFORM.createBlockEntityType(
-                  DisplayRackBlockEntity::new,
-                  DISPLAY_RACK.get()
-          )
+      () -> Services.PLATFORM.createBlockEntityType(
+          DisplayRackBlockEntity::new,
+          DISPLAY_RACK.get()
+      )
   );
 
   public static void init() {
