@@ -9,6 +9,7 @@
   ],
   "contact": {
     "homepage": "https://khazoda.com/#heirlooms",
+    "issues": "https://github.com/Khazoda/heirlooms/issues",
     "sources": "https://github.com/Khazoda/heirlooms"
   },
   "license": "${license}",
