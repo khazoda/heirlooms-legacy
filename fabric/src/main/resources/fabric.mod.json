@@ -1,6 +1,6 @@
 {
     "schemaVersion": 1,
-    "id": "mod_id",
+    "id": "heirlooms",
     "version": "${version}",
     "name": "${mod_name}",
     "description": "${description}",
@@ -8,15 +8,15 @@
         "${mod_author}"
     ],
     "contact": {
-        "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/FabricMC/fabric-example-mod"
+        "homepage": "https://khazoda.com/#heirlooms",
+        "sources": "https://github.com/khazoda/heirlooms"
     },
     "license": "${license}",
     "icon": "assets/modid/${mod_id}.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.examplemod.ExampleMod"
+            "com.khazoda.heirlooms.HeirloomsFabric"
         ]
     },
     "mixins": [
@@ -33,4 +33,3 @@
         "another-mod": "*"
     }
 }
-  

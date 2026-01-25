@@ -1,6 +1,6 @@
-package com.example.examplemod.platform;
+package com.khazoda.heirlooms.platform;
 
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.khazoda.heirlooms.platform.services.IPlatformHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 
