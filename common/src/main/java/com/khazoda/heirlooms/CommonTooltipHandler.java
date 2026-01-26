@@ -81,7 +81,7 @@ public class CommonTooltipHandler {
       tooltip.add(Component.translatable("tooltip.heirlooms.date", getFormattedDay(day, locale), month, monthName, year).withStyle(style -> style.withColor(color)));
 
     } catch (Exception e) {
-      System.out.println("Heirlooms mod error [1] - please report on the issue tracker");
+      Constants.LOG.error("Heirlooms mod error [1] - please report on the issue tracker", e);
     }
   }
 
