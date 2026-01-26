@@ -16,15 +16,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinItemCombinerMenu {
 
   @Inject(
-          method = "quickMoveStack",
-          at = @At(
-                  value = "INVOKE",
-                  target = "Lnet/minecraft/world/inventory/ItemCombinerMenu;getResultSlot()I",
-                  shift = At.Shift.AFTER
-          )
+      method = "quickMoveStack",
+      at = @At(
+          value = "INVOKE",
+          target = "Lnet/minecraft/world/inventory/ItemCombinerMenu;getResultSlot()I",
+          shift = At.Shift.AFTER
+      )
   )
   private void heirlooms$onShiftClickSmithed(Player player, int index, CallbackInfoReturnable<ItemStack> cir) {
-    ItemCombinerMenu menu = (ItemCombinerMenu)(Object)this;
+    ItemCombinerMenu menu = (ItemCombinerMenu) (Object) this;
     if (index == menu.getResultSlot()) {
       Slot slot = menu.getSlot(index);
       if (slot.hasItem()) {

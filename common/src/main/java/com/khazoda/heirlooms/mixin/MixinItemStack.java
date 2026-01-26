@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemStack.class)
 public class MixinItemStack {
 
-    @Inject(method = "onCraftedBy", at = @At("HEAD"))
-    private void heirlooms$onCraftedBy(Level level, Player player, int amount, CallbackInfo ci) {
-        SlotResultModifier.handleCraftedItem(player, (ItemStack) (Object) this);
-    }
+  @Inject(method = "onCraftedBy", at = @At("HEAD"))
+  private void heirlooms$onCraftedBy(Level level, Player player, int amount, CallbackInfo ci) {
+    SlotResultModifier.handleCraftedItem(player, (ItemStack) (Object) this);
+  }
 }

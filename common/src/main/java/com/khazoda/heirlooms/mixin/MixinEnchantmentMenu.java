@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinEnchantmentMenu {
   @Inject(method = "clickMenuButton", at = @At("RETURN"))
   private void heirlooms$onEnchanted(Player player, int id, CallbackInfoReturnable<Boolean> cir) {
-      Slot slot = ((EnchantmentMenu) (Object) this).getSlot(0);
-      if (slot.hasItem()) {
-        SlotResultModifier.handleEnchantedItem(player, slot.getItem());
-      }
+    Slot slot = ((EnchantmentMenu) (Object) this).getSlot(0);
+    if (slot.hasItem()) {
+      SlotResultModifier.handleEnchantedItem(player, slot.getItem());
+    }
   }
 }
