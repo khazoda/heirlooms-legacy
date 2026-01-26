@@ -1,35 +1,38 @@
 {
-    "schemaVersion": 1,
-    "id": "heirlooms",
-    "version": "${version}",
-    "name": "${mod_name}",
-    "description": "${description}",
-    "authors": [
-        "${mod_author}"
+  "schemaVersion": 1,
+  "id": "heirlooms",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contact": {
+    "homepage": "https://khazoda.com/#heirlooms",
+    "sources": "https://github.com/khazoda/heirlooms"
+  },
+  "license": "${license}",
+  "icon": "assets/modid/${mod_id}.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.khazoda.heirlooms.HeirloomsFabric"
     ],
-    "contact": {
-        "homepage": "https://khazoda.com/#heirlooms",
-        "sources": "https://github.com/khazoda/heirlooms"
-    },
-    "license": "${license}",
-    "icon": "assets/modid/${mod_id}.png",
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "com.khazoda.heirlooms.HeirloomsFabric"
-        ]
-    },
-    "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
-    ],
-    "depends": {
-        "fabricloader": ">=0.14",
-        "fabric": "*",
-        "minecraft": "${minecraft_version}",
-        "java": ">=17"
-    },
-    "suggests": {
-        "another-mod": "*"
-    }
+    "client": [
+      "com.khazoda.heirlooms.HeirloomsFabricClient"
+    ]
+  },
+  "mixins": [
+    "${mod_id}.mixins.json",
+    "${mod_id}.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
 }
