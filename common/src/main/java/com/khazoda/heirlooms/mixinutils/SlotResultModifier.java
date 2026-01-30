@@ -1,6 +1,7 @@
 package com.khazoda.heirlooms.mixinutils;
 
 import com.khazoda.heirlooms.HeirloomsMod;
+import com.khazoda.heirlooms.registry.DataComponentRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -12,19 +13,19 @@ public class SlotResultModifier {
     if (player.level().isClientSide()) return;
     if (stack.isEmpty()) return;
     if (stack.getMaxStackSize() > 1) return;
-    if (stack.has(HeirloomsMod.CRAFTED_TIMESTAMP) || stack.has(HeirloomsMod.CRAFTED_BY)) return;
+    if (stack.has(DataComponentRegistry.CRAFTED_TIMESTAMP) || stack.has(DataComponentRegistry.CRAFTED_BY)) return;
 
-    stack.set(HeirloomsMod.CRAFTED_TIMESTAMP, Instant.now().toString());
-    stack.set(HeirloomsMod.CRAFTED_BY, player.getGameProfile().getName());
+    stack.set(DataComponentRegistry.CRAFTED_TIMESTAMP, Instant.now().toString());
+    stack.set(DataComponentRegistry.CRAFTED_BY, player.getGameProfile().getName());
   }
 
   public static void handleEnchantedItem(Player player, ItemStack stack) {
     if (player.level().isClientSide()) return;
     if (stack.isEmpty()) return;
     if (stack.getMaxStackSize() > 1) return;
-    if (stack.has(HeirloomsMod.ENCHANTED_TIMESTAMP) || stack.has(HeirloomsMod.ENCHANTED_BY)) return;
+    if (stack.has(DataComponentRegistry.ENCHANTED_TIMESTAMP) || stack.has(DataComponentRegistry.ENCHANTED_BY)) return;
 
-    stack.set(HeirloomsMod.ENCHANTED_TIMESTAMP, Instant.now().toString());
-    stack.set(HeirloomsMod.ENCHANTED_BY, player.getGameProfile().getName());
+    stack.set(DataComponentRegistry.ENCHANTED_TIMESTAMP, Instant.now().toString());
+    stack.set(DataComponentRegistry.ENCHANTED_BY, player.getGameProfile().getName());
   }
 }

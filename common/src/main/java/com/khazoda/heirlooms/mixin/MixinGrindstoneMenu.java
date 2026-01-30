@@ -1,6 +1,7 @@
 package com.khazoda.heirlooms.mixin;
 
 import com.khazoda.heirlooms.HeirloomsMod;
+import com.khazoda.heirlooms.registry.DataComponentRegistry;
 import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinGrindstoneMenu {
   @Inject(method = "removeNonCursesFrom", at = @At(value = "RETURN"))
   private void heirlooms$onEnchantmentRemoved(ItemStack item, CallbackInfoReturnable<ItemStack> cir) {
-    if (item.has(HeirloomsMod.ENCHANTED_TIMESTAMP) || item.has(HeirloomsMod.ENCHANTED_BY)) {
-      item.remove(HeirloomsMod.ENCHANTED_TIMESTAMP);
-      item.remove(HeirloomsMod.ENCHANTED_BY);
+    if (item.has(DataComponentRegistry.ENCHANTED_TIMESTAMP) || item.has(DataComponentRegistry.ENCHANTED_BY)) {
+      item.remove(DataComponentRegistry.ENCHANTED_TIMESTAMP);
+      item.remove(DataComponentRegistry.ENCHANTED_BY);
     }
   }
 }

@@ -9,6 +9,7 @@
     "MixinEnchantmentMenu",
     "MixinGrindstoneMenu",
     "MixinItemCombinerMenu",
+    "MixinItemStack",
     "MixinResultSlot",
     "MixinSmithingMenu"
   ],
