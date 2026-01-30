@@ -16,6 +16,5 @@ public class MixinResultSlot {
   @Inject(method = "onTake", at = @At("HEAD"))
   private void heirlooms$onItemCrafted(Player player, ItemStack stack, CallbackInfo ci) {
     SlotResultModifier.handleCraftedItem(player, stack);
-
   }
 }
