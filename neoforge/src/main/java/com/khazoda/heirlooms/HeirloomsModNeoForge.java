@@ -1,6 +1,7 @@
 package com.khazoda.heirlooms;
 
 
+import com.khazoda.heirlooms.registry.DataComponentRegistry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.CommonComponents;
@@ -18,10 +19,10 @@ public class HeirloomsModNeoForge {
     HeirloomsMod.init();
 
     // Register Data Component
-    COMPONENTS.register("crafted_timestamp", () -> HeirloomsMod.CRAFTED_TIMESTAMP);
-    COMPONENTS.register("crafted_by", () -> HeirloomsMod.CRAFTED_BY);
-    COMPONENTS.register("enchanted_timestamp", () -> HeirloomsMod.ENCHANTED_TIMESTAMP);
-    COMPONENTS.register("enchanted_by", () -> HeirloomsMod.ENCHANTED_BY);
+    COMPONENTS.register("crafted_timestamp", () -> DataComponentRegistry.CRAFTED_TIMESTAMP);
+    COMPONENTS.register("crafted_by", () -> DataComponentRegistry.CRAFTED_BY);
+    COMPONENTS.register("enchanted_timestamp", () -> DataComponentRegistry.ENCHANTED_TIMESTAMP);
+    COMPONENTS.register("enchanted_by", () -> DataComponentRegistry.ENCHANTED_BY);
     COMPONENTS.register(eventBus);
   }
 
