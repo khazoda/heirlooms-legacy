@@ -1,7 +1,6 @@
 package com.khazoda.heirlooms.mixin;
 
 import com.khazoda.heirlooms.mixinutils.SlotResultModifier;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +16,5 @@ public class MixinResultSlot {
   @Inject(method = "onTake", at = @At("HEAD"))
   private void heirlooms$onItemCrafted(Player player, ItemStack stack, CallbackInfo ci) {
     SlotResultModifier.handleCraftedItem(player, stack);
-
   }
 }
