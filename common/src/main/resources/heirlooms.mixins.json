@@ -10,7 +10,8 @@
     "MixinGrindstoneMenu",
     "MixinItemCombinerMenu",
     "MixinResultSlot",
-    "MixinSmithingMenu"
+    "MixinSmithingMenu",
+    "MixinItemStack"
   ],
   "client": [
     "ClientMixinGUI"
