@@ -41,6 +41,23 @@ neoForge {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+def exportRoot = rootProject.layout.projectDirectory.dir('export')
+
+tasks.named('jar') {
+    archiveFileName.set("${mod_id}-neoforge-${project.version}+${minecraft_version}.jar")
+    destinationDirectory.set(exportRoot)
+}
+
+tasks.named('sourcesJar') {
+    archiveFileName.set("${mod_id}-neoforge-${project.version}+${minecraft_version}-sources.jar")
+    destinationDirectory.set(exportRoot.dir('source'))
+}
+
+tasks.named('javadocJar') {
+    archiveFileName.set("${mod_id}-neoforge-${project.version}+${minecraft_version}-javadoc.jar")
+    destinationDirectory.set(exportRoot.dir('javadoc'))
+}
+
 // Implement mcgradleconventions loader attribute
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
 ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
