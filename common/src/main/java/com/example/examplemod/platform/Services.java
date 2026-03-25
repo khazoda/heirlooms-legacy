@@ -11,7 +11,7 @@ import java.util.ServiceLoader;
 public class Services {
 
     // In this example we provide a platform helper which provides information about what platform the mod is running on.
-    // For example this can be used to check if the code is running on Forge vs Fabric, or to ask the modloader if another
+    // For example this can be used to check if the code is running on NeoForge vs Fabric, or to ask the modloader if another
     // mod is loaded.
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
 
