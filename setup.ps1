@@ -252,6 +252,7 @@ $settingsPath = Join-Path $scriptRoot 'settings.gradle'
 $currentModName = Read-PropertyValue -Path $gradlePropertiesPath -Key 'mod_name'
 $currentModId = Read-PropertyValue -Path $gradlePropertiesPath -Key 'mod_id'
 $currentAuthor = Read-PropertyValue -Path $gradlePropertiesPath -Key 'mod_author'
+$currentModIcon = Read-PropertyValue -Path $gradlePropertiesPath -Key 'mod_icon'
 $currentPackageName = Get-CurrentPackageName
 $currentFolderName = $projectDir.Name
 
@@ -309,6 +310,11 @@ if ($PackageName -notmatch '^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$'
 
 $projectNameToUse = $ProjectName.Trim()
 $targetPackageName = $PackageName.Trim()
+$targetModIcon = if ($currentModIcon -match '\.[A-Za-z0-9]+$') {
+    "$ModId$([System.IO.Path]::GetExtension($currentModIcon))"
+} else {
+    "$ModId.png"
+}
 
 if ([string]::IsNullOrWhiteSpace($projectNameToUse)) {
     throw 'Project name must not be blank.'
@@ -324,6 +330,7 @@ Replace-InFiles -Replacements @(
 Update-PropertyValue -Path $gradlePropertiesPath -Key 'mod_name' -Value $ModName
 Update-PropertyValue -Path $gradlePropertiesPath -Key 'mod_id' -Value $ModId
 Update-PropertyValue -Path $gradlePropertiesPath -Key 'mod_author' -Value $Author
+Update-PropertyValue -Path $gradlePropertiesPath -Key 'mod_icon' -Value $targetModIcon
 Update-PropertyValue -Path $gradlePropertiesPath -Key 'group' -Value $targetPackageName
 Update-RootProjectName -Path $settingsPath -Value $projectNameToUse
 
