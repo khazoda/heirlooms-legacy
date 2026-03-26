@@ -7,6 +7,7 @@
     "authors": [
         "${mod_author}"
     ],
+    "contributors": [],
     "contact": {
         "homepage": "${homepage_url}",
         "sources": "${sources_url}",
