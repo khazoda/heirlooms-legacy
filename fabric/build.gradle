@@ -32,6 +32,14 @@ loom {
     }
 }
 
+fabricApi.configureDataGeneration {
+    modId = mod_id
+    outputDirectory = project(':common').file('src/main/generated')
+    addToResources = false
+    createSourceSet = true
+    client = true
+}
+
 def exportRoot = rootProject.layout.projectDirectory.dir('export')
 
 tasks.named('jar') {

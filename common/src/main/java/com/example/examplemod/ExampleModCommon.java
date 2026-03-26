@@ -1,6 +1,6 @@
 package com.example.examplemod;
 
-public class CommonClass {
+public class ExampleModCommon {
     public static void init() {
     }
 }

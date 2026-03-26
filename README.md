@@ -36,3 +36,9 @@
 - Code comments and superfluous logging have been removed for a cleaner template
 - Example mixins have been removed
 - gradle.properties has had comments slimmed down and has been visually reordered
+- build artifacts go in a top level export/ directory rather than each modloader's specific subdirectories
+- fabric datagen has been configured to generate resources for the common source set, which both fabric & neoforge then bundle in their releases. 
+
+### Manual steps to take after running bootstrap script
+1. Check for any leftover package names or references to 'example' or 'examplemod' and replace them with yours.
+2. Rename/Delete existing 'example' classes such as `ExampleModCommon`, `ExampleModFabric`, `ExampleModNeoForge`. Also rename/delete datagen classes `ExampleModDataGenerator` & `ExampleModModelProvider` and update their references to match in `fabric.mod.json` 

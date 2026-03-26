@@ -43,6 +43,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 def exportRoot = rootProject.layout.projectDirectory.dir('export')
 
+tasks.named('processResources') {
+    mustRunAfter(project(':fabric').tasks.named('runDatagen'))
+}
+
 tasks.named('jar') {
     archiveFileName.set("${mod_id}-neoforge-${project.version}+${minecraft_version}.jar")
     destinationDirectory.set(exportRoot)

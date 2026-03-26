@@ -16,7 +16,10 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.examplemod.ExampleMod"
+            "com.example.examplemod.ExampleModFabric"
+        ],
+        "fabric-datagen": [
+            "com.example.examplemod.datagen.ExampleModDataGenerator"
         ]
     },
     "mixins": [
