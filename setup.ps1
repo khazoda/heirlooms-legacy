@@ -16,6 +16,7 @@ $ErrorActionPreference = 'Stop'
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $projectDir = Get-Item $scriptRoot
+$launchDir = (Get-Location).Path
 $editableRoots = @(
     'common/src/main/java'
     'common/src/main/resources'
@@ -234,6 +235,17 @@ function Rename-ServiceFiles {
     }
 }
 
+function Test-IsSameOrChildPath {
+    param([string]$Path, [string]$RootPath)
+
+    $fullPath = [System.IO.Path]::GetFullPath($Path).TrimEnd('\', '/')
+    $fullRootPath = [System.IO.Path]::GetFullPath($RootPath).TrimEnd('\', '/')
+
+    return $fullPath.Equals($fullRootPath, [System.StringComparison]::OrdinalIgnoreCase) -or
+        $fullPath.StartsWith($fullRootPath + '\', [System.StringComparison]::OrdinalIgnoreCase) -or
+        $fullPath.StartsWith($fullRootPath + '/', [System.StringComparison]::OrdinalIgnoreCase)
+}
+
 $gradlePropertiesPath = Join-Path $scriptRoot 'gradle.properties'
 $settingsPath = Join-Path $scriptRoot 'settings.gradle'
 
@@ -323,11 +335,22 @@ foreach ($module in @('common', 'fabric', 'neoforge')) {
 }
 
 $finalProjectDir = $projectDir.FullName
+$renameInstruction = ''
 if ($RenameFolder -and $projectNameToUse -ne $currentFolderName) {
     $parentDir = Split-Path -Parent $projectDir.FullName
-    Set-Location $parentDir
-    Rename-Item -Path $projectDir.FullName -NewName $projectNameToUse
-    $finalProjectDir = Join-Path $parentDir $projectNameToUse
+    $targetProjectDir = Join-Path $parentDir $projectNameToUse
+
+    if (Test-IsSameOrChildPath -Path $launchDir -RootPath $projectDir.FullName) {
+        $renameInstruction = "Rename the project folder after the script finishes: '$currentFolderName' -> '$projectNameToUse'"
+    }
+    else {
+        try {
+            Rename-Item -LiteralPath $projectDir.FullName -NewName $projectNameToUse
+            $finalProjectDir = $targetProjectDir
+        } catch [System.IO.IOException] {
+            $renameInstruction = "Could not rename the project folder automatically. Rename it manually: '$currentFolderName' -> '$projectNameToUse'"
+        }
+    }
 }
 
 Write-Host ''
@@ -337,3 +360,6 @@ Write-Host "Mod id: $ModId"
 Write-Host "Author: $Author"
 Write-Host "Package: $targetPackageName"
 Write-Host "Project folder: $finalProjectDir"
+if ($renameInstruction) {
+    Write-Host $renameInstruction
+}
