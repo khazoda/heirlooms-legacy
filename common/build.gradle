@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-common'
     id 'net.neoforged.moddev'
+    id 'net.fabricmc.fabric-loom-companion'
 }
 
 neoForge {
@@ -17,10 +18,10 @@ neoForge {
 }
 
 dependencies {
-    compileOnly group: 'net.fabricmc', name: 'sponge-mixin', version: '0.16.4+mixin.0.8.7'
+    compileOnly "net.fabricmc:sponge-mixin:0.16.4+mixin.0.8.7"
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
-    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.5'
-    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.5'
+    compileOnly "io.github.llamalad7:mixinextras-common:0.5.5"
+    annotationProcessor "io.github.llamalad7:mixinextras-common:0.5.5"
 }
 
 configurations {
