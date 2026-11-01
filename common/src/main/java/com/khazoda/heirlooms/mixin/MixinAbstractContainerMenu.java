@@ -9,9 +9,15 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+
+import java.util.List;
 
 @Mixin(AbstractContainerMenu.class)
 public abstract class MixinAbstractContainerMenu {
+
+    @Unique
+    private static final List<Class<? extends AbstractContainerMenu>> EXCLUDED_CLASSES = List.of(MerchantMenu.class, AnvilMenu.class, GrindstoneMenu.class);
 
     @Shadow
     public abstract Slot getSlot(int slotId);
@@ -20,8 +26,8 @@ public abstract class MixinAbstractContainerMenu {
     private void heirlooms$captureOutput(int slotId, int button, ClickType clickType, Player player, Operation<Void> original) {
         HeirloomsState.setCapturing(null);
         try {
-            //noinspection ConstantValue
-            if (clickType == ClickType.QUICK_MOVE && slotId >= 0 && player != null && !MerchantMenu.class.isInstance(this)) {
+            // FIXME special handle grindstones, merchants and anvils
+            if (clickType == ClickType.QUICK_MOVE && slotId >= 0 && player != null && EXCLUDED_CLASSES.stream().noneMatch(cls -> cls.isInstance(this))) {
                 try {
                     Slot slot = this.getSlot(slotId);
                     if (slot != null && slot.hasItem()) {
