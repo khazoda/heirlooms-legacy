@@ -6,12 +6,13 @@
   "compatibilityLevel": "JAVA_18",
   "mixins": [
     "MixinAbstractContainerMenu",
+    "MixinAnvilMenu",
     "MixinCraftingMenu",
     "MixinEnchantmentMenu",
     "MixinGrindstoneMenu",
+    "MixinInventory",
     "MixinItemCombinerMenu",
     "MixinItemStack",
-    "MixinInventory",
     "MixinResultSlot",
     "MixinSmithingMenu"
   ],

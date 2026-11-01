@@ -10,6 +10,10 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    modLocalRuntime "maven.modrinth:visual-workbench:HyTKHqxd" // 21.1.2 (fabric)
+    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:21.1.6"
+    modLocalRuntime "fuzs.puzzleslib:puzzleslib-fabric:21.1.66"
 }
 
 loom {
@@ -17,21 +21,18 @@ loom {
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
     runs {
         client {
             client()
-            setConfigName('Fabric Client')
-            ideConfigGenerated(true)
-            runDir('runs/client')
+            displayName = 'Fabric Client'
+            generateRunConfig = true
+            runDirectory = file('runs/client')
         }
         server {
             server()
-            setConfigName('Fabric Server')
-            ideConfigGenerated(true)
-            runDir('runs/server')
+            displayName = 'Fabric Server'
+            generateRunConfig = true
+            runDirectory = file('runs/server')
         }
     }
 }
