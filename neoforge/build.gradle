@@ -47,7 +47,8 @@ configurations {
 
 dependencies {
     localRuntime "maven.modrinth:visual-workbench:3646RfLS" // 21.1.2 (neoforge)
-    localRuntime "maven.modrinth:puzzles-lib:kmN5PWk9" // 21.1.66 (neoforge)
+    localRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-neoforge:21.1.6"
+    localRuntime "fuzs.puzzleslib:puzzleslib-neoforge:21.1.66"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

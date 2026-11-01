@@ -12,8 +12,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
     modLocalRuntime "maven.modrinth:visual-workbench:HyTKHqxd" // 21.1.2 (fabric)
-    modLocalRuntime "maven.modrinth:forge-config-api-port:N5qzq0XV" // 21.1.6-1.21.1 (fabric)
-    modLocalRuntime "maven.modrinth:puzzles-lib:IV6k1yRp" // 21.1.66 (fabric)
+    modLocalRuntime "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:21.1.6"
+    modLocalRuntime "fuzs.puzzleslib:puzzleslib-fabric:21.1.66"
 }
 
 loom {

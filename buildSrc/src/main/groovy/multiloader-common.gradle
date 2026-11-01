@@ -40,6 +40,17 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Fuzs Mod Resources"
+                url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("fuzs")
+        }
+    }
     maven {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
